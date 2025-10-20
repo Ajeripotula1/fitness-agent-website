@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 # Database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://dev_user:dev_password@localhost:5433/fitness_agent")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Create SQLAlchemy engine
 engine = create_engine(DATABASE_URL)

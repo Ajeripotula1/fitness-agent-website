@@ -15,7 +15,64 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persist data
     restart: unless-stopped               # Auto-restart if it crashes
+    networks:
+      - fitness_network
 
-# Named volume to store database data
+  # FastAPI Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fitness_agent_backend
+    environment:
+      - DATABASE_URL=postgresql://admin:admin_password@postgres:5432/fitness_agent
+      - AGENTCORE_URL=http://agentcore:8080
+      - AWS_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - agentcore
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+    networks:
+      - fitness_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # AgentCore Runtime Service
+  agentcore:
+    image: public.ecr.aws/bedrock/agentcore-runtime:latest
+    container_name: fitness_agent_agentcore
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
+      # Add your AWS credentials for local testing
+      # - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      # - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./agentcore-config:/config
+      - ~/.aws:/root/.aws:ro  # Mount AWS credentials for local testing
+    restart: unless-stopped
+    networks:
+      - fitness_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+# Named volumes and networks
 volumes:
   postgres_data:
+
+networks:
+  fitness_network:
+    driver: bridge

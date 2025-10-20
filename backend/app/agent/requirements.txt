@@ -1,0 +1,21 @@
+# AgentCore Service Dependencies Only
+# Minimal requirements for running the fitness agent in AgentCore Runtime
+
+# Core AgentCore and Strands
+bedrock-agentcore-starter-toolkit>=0.1.21
+strands-agents==1.12.0
+strands-agents-tools==0.2.11
+
+# AWS SDK
+boto3==1.40.50
+botocore==1.40.50
+
+# Environment and utilities
+python-dotenv==1.0.0
+
+# Pydantic for data validation (used in agent schemas)
+pydantic==2.11.9
+pydantic_core==2.33.2
+
+# Basic Python utilities that agent might need
+typing_extensions==4.15.0

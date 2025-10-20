@@ -1,106 +1,233 @@
-# FitnessAgent Website
+# FitAgent - AI-Powered Fitness & Nutrition Planner
 
-A single-page application (SPA) that provides personalized fitness and nutrition planning through an AI-powered agent. The system uses structured reasoning and scientific tools to create evidence-based workout and meal plans.
+> **AWS AI Agent Hackathon Submission** 🏆  
+> *Personalized fitness and nutrition planning powered by AWS Bedrock AgentCore*
 
-## Architecture
+## 🎯 What is FitAgent?
 
-- **Frontend**: React with Vite (JavaScript)
-- **Backend**: FastAPI (Python)
-- **Database**: PostgreSQL with Docker
-- **AI Agent**: Strands SDK (development) → AWS Bedrock AgentCore Runtime (production)
+FitAgent is an intelligent fitness and nutrition planning application that leverages AWS Bedrock's AgentCore to create personalized workout routines and meal plans. The AI agent analyzes user profiles, fitness goals, and preferences to generate evidence-based recommendations using scientific calculations and health metrics.
 
-## Project Structure
+### Current Features ✅
+- **User Authentication & Profiles** - Secure user registration and login
+- **Comprehensive Health Assessment** - BMI, BMR, and calorie needs calculation
+- **AI-Powered Workout Generation** - Personalized routines based on goals and equipment
+- **Smart Meal Planning** - Nutrition plans aligned with dietary preferences and calorie targets
+- **Real-time Plan Generation** - Instant AI responses using AWS Bedrock Claude models
+- **Cloud Database Integration** - AWS RDS PostgreSQL for scalable data storage
 
-```
-fitness-agent-website/
-├── .kiro/specs/           # Kiro specifications
-├── backend/               # FastAPI backend
-│   ├── app/
-│   │   ├── main.py       # FastAPI application
-│   │   ├── database.py   # Database connection
-│   │   ├── models/       # Database models
-│   │   ├── api/          # API routes
-│   │   └── tools/        # Agent tools
-│   └── requirements.txt
-├── frontend/              # React frontend
-│   ├── src/
-│   └── package.json
-├── docker-compose.yml     # PostgreSQL database
-└── README.md
-```
+### Who Is This For? 👥
+- **Fitness Enthusiasts** seeking personalized workout plans
+- **Health-Conscious Individuals** wanting structured nutrition guidance  
+- **Busy Professionals** needing efficient, AI-generated fitness solutions
+- **Personal Trainers** looking for AI-assisted client planning tools
+- **Anyone** starting their fitness journey with scientific backing
 
-## Development Setup
+## 🏗️ Architecture & Tech Stack
+
+### Frontend
+- **React 18** with component-based architecture, tailwind styling, and responsive design
+
+### Backend
+- **FastAPI** Python REST API
+- **SQLAlchemy ORM** for database operations
+- **JWT Authentication** for secure user sessions
+- **AWS Bedrock AgentCore Integration** for AI agent functionality
+
+### Database & Infrastructure
+- **AWS RDS PostgreSQL** for production data storage
+- **Docker** for local development environment
+- **AWS Bedrock** for AI model access (Claude 3 Sonnet)
+- **AgentCore Runtime** for agent orchestration
+
+### AI Agent Capabilities
+- **Health Calculations** - BMI, BMR, calorie needs
+- **Workout Generation** - Equipment-based routine creation
+- **Meal Planning** - Macro-balanced nutrition plans
+- **Scientific Reasoning** - Evidence-based recommendations
+
+## 🚀 Quick Start Guide
 
 ### Prerequisites
-- Python 3.8+
-- Node.js 16+
-- Docker & Docker Compose
+- Python 3.11+
+- Node.js 18+
+- AWS Account with Bedrock access
+- Git
 
-### 1. Database Setup
+### 1. Clone the Repository
 ```bash
-# Start PostgreSQL
-docker-compose up -d postgres
+git clone https://github.com/yourusername/fit-agent.git
+cd fit-agent
 ```
 
 ### 2. Backend Setup
 ```bash
 cd backend
+
+# Create virtual environment
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 
-# Create .env file with database credentials
-cp .env.example .env  # Edit with your settings
-
-# Run FastAPI server
-uvicorn app.main:app --reload
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your AWS credentials and database URL
 ```
 
-### 3. Frontend Setup
+### 3. Database Setup
+```bash
+# For local development with Docker
+docker-compose up -d postgres
+
+# Or configure your AWS RDS connection in .env
+# DATABASE_URL=postgresql://username:password@your-rds-endpoint:5432/dbname
+```
+
+### 4. Frontend Setup
 ```bash
 cd frontend
+
+# Install dependencies
 npm install
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your backend API URL
+
+# Start development server
 npm run dev
 ```
 
-## Services
+### 5. Start the Application
+```bash
+# Terminal 1: Backend
+cd backend
+uvicorn app.main:app --reload
 
+# Terminal 2: Frontend  
+cd frontend
+npm run dev
+```
+
+### 6. Access the Application
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:8000
-- **Database**: localhost:5433
-- **API Docs**: http://localhost:8000/docs
+- **API Documentation**: http://localhost:8000/docs
 
-## Features
+## 📋 Environment Configuration
 
-- User authentication and profiles
-- Goal-based fitness planning
-- AI-powered workout generation
-- Personalized meal planning
-- Conversational plan refinement
-- Daily/weekly progress tracking
+### Backend (.env)
+```bash
+# Database
+DATABASE_URL=postgresql://username:password@host:port/database
 
-## Development Status
+# FastAPI
+SECRET_KEY=your-secret-key-here
+DEBUG=True
 
-- [x] Task 1: Development environment setup
-- [ ] Task 2: Database models and migrations
-- [ ] Task 3: Authentication system
-- [ ] Task 4: Goal input interface
-- [ ] Task 5: Scientific calculation tools
-- [ ] Task 6: Strands SDK agent integration
-- [ ] Task 7: Plan generation and display
-- [ ] Task 8: Conversational interface
-- [ ] Task 9: Daily tracking interface
-- [ ] Task 10: Error handling
-- [ ] Task 11: Session management
-- [ ] Task 12: Testing and documentation
+# AWS Bedrock AgentCore
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_DEFAULT_REGION=us-east-1
+AGENTCORE_AGENT_ARN=your-agent-arn
+```
 
-## Contributing
+### Frontend (.env)
+```bash
+VITE_API_URL=http://localhost:8000
+```
 
-1. Follow the task list in `.kiro/specs/fitness-agent-website/tasks.md`
-2. Create feature branches for each task
-3. Test thoroughly before committing
-4. Update documentation as needed
+## 🔧 Development Workflow
 
-## License
+### Project Structure
+```
+fit-agent/
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── main.py         # FastAPI application
+│   │   ├── database.py     # Database connection
+│   │   ├── models/         # SQLAlchemy models
+│   │   ├── api/            # API route handlers
+│   │   ├── schemas/        # Pydantic schemas
+│   │   ├── tools/          # Agent calculation tools
+│   │   └── agent/          # AgentCore integration
+│   ├── requirements.txt    # Python dependencies
+│   └── .env.example       # Environment template
+├── frontend/               # React frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Page components
+│   │   ├── services/       # API services
+│   │   └── utils/          # Utility functions
+│   ├── package.json       # Node dependencies
+│   └── .env.example       # Environment template
+├── docker-compose.yml     # Local PostgreSQL
+└── README.md             # This file
+```
 
-Private project - All rights reserved
+### Key API Endpoints
+- `POST /auth/register` - User registration
+- `POST /auth/login` - User authentication  
+- `GET /profile` - Get user profile
+- `PUT /profile` - Update user profile
+- `POST /agent/generate-plan` - Generate fitness plan
+- `GET /health` - Health check
+
+## 🧪 Testing the AI Agent
+
+### Sample User Profile
+```json
+{
+  "age": 28,
+  "weight": 70,
+  "height_feet": 5,
+  "height_inches": 8,
+  "gender": "male",
+  "fitness_goal": "lose-weight",
+  "activity_level": "moderate",
+  "workout_days_per_week": 4,
+  "workout_duration_minutes": 45,
+  "available_equipment": ["dumbbells", "resistance_bands"],
+  "dietary_preferences": ["vegetarian"]
+}
+```
+
+### Expected AI Response
+The agent will generate:
+- **Health Metrics**: BMI, BMR, daily calorie needs
+- **Workout Plan**: 4-day routine with dumbbell exercises
+- **Meal Plan**: Vegetarian meals meeting calorie targets
+- **Tips**: Personalized advice for weight loss goals
+
+## 🚀 Production Deployment
+
+### AWS Infrastructure
+- **AWS RDS PostgreSQL** for database
+- **AWS Bedrock** for AI model access
+- **AgentCore Runtime** for agent orchestration
+- **EC2/ECS** for backend hosting (recommended)
+- **S3 + CloudFront** for frontend hosting
+
+### Environment Variables (Production)
+Set these in your production environment:
+- `DATABASE_URL` - RDS connection string
+- `SECRET_KEY` - Strong secret for JWT tokens
+- `DEBUG=False` - Disable debug mode
+- AWS credentials via IAM roles (preferred) or environment variables
+
+## 🎯 Hackathon Highlights
+
+### AWS Services Used
+- **AWS Bedrock** - Claude 3 Sonnet for AI reasoning
+- **AgentCore Runtime** - Agent orchestration and management
+- **AWS RDS** - Managed PostgreSQL database
+- **IAM** - Secure credential management
+
+### Innovation Points
+- **Scientific Accuracy** - Evidence-based health calculations
+- **Personalization** - Tailored plans based on individual profiles
+- **Real-time AI** - Instant plan generation using Bedrock
+- **Scalable Architecture** - Cloud-native design for growth
+- **User Experience** - Intuitive interface for complex AI interactions
+

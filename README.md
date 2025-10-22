@@ -55,7 +55,7 @@ FitAgent is an intelligent fitness and nutrition planning application that lever
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/fit-agent.git
+git clone https://github.com/Ajeripotula1/fitness-agent-website.git
 cd fit-agent
 ```
 

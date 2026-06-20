@@ -7,6 +7,8 @@
 
 FitAgent is an intelligent fitness and nutrition planning application that leverages AWS Bedrock's AgentCore to create personalized workout routines and meal plans. The AI agent analyzes user profiles, fitness goals, and preferences to generate evidence-based recommendations using scientific calculations and health metrics.
 
+### Video Demo 
+https://www.youtube.com/watch?v=82WYTvJQ-4w
 ### Current Features ✅
 - **User Authentication & Profiles** - Secure user registration and login
 - **Comprehensive Health Assessment** - BMI, BMR, and calorie needs calculation
